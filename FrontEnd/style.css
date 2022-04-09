@@ -1,11 +1,15 @@
 @font-face { font-family: League; src: url('Friz-Quadrata-Font/Friz Quadrata Regular.ttf'); }
 @font-face { font-family: League; font-weight: bold; src: url('Friz-Quadrata-Font/Friz Quadrata Bold.otf');}
 
+body {
+  font-family: League !important;
+}
+
 .navigation-bar {
   width: 100%;
   border-bottom: 1px solid black;
   text-align: center;
-  font-family: League;
+
 }
 
 #main-header {
@@ -31,16 +35,18 @@
 
 .clues {
   border: 1px solid black;
-  width: 35%;
+  width: 55%;
   margin: 0 auto;
   height: 100px;
   margin-top: 5%;
   padding: 1%;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
 #guessField {
-  width: 35%;
+  width: 30%;
   height: 35px;
+  font-size: 100%;
 }
 
 #subButton {
@@ -49,4 +55,32 @@
 
 #questionType {
   margin-top: 2%;
+}
+
+.clues p {
+  font-size: 100%;
+}
+
+.popup-header {
+  margin: 0 auto;
+  margin-top: 5%;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.stat-item h3 {
+  font-size: 150%;
+}
+
+.stat-item h5 {
+  font-size: 80%;
 }

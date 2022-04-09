@@ -1,7 +1,7 @@
 
 var guessNum = 0;
 var questionType = "Champion";
-var clueArray = ["When The Champion dies, his body quickly becomes unstable and overly shiny, just to blow up a moment later, much like a nuclear-powered machine.", "Passive: Mana Surge", "the Magus Ascendant"];
+var clueArray = ["When The Champion dies, his body quickly becomes unstable and overly shiny, just to blow up a moment later, much like a nuclear-powered machine.", "Passive: Mana Surge", "Nickname: the Magus Ascendant"];
 var answer = "Xerath";
 
 var qType = document.getElementById("questionType");
@@ -22,6 +22,7 @@ function getGuess() {
     alert("You Won! :)");
   }
 }
+$('#exampleModal').modal()
 
 var subButton = document.getElementById('subButton');
 subButton.addEventListener('click', getGuess, false);
