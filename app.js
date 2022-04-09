@@ -5,6 +5,7 @@ const cron = require('node-cron')
 const axios = require('axios')
 const cheerio = require('cheerio')
 const pretty = require('pretty')
+
 var Sequelize = require('sequelize-cockroachdb')
 
 require('dotenv').config()
@@ -43,6 +44,8 @@ const updateDB = Answer.update(
 app.listen(PORT, () => {
   console.log("Listening to port: " + PORT)
 })
+
+
 
 const indices = "QWER";
 //Get new word + clues

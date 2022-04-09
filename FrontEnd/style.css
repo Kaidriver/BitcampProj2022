@@ -1,3 +1,52 @@
-label {
-  color: red;
+@font-face { font-family: League; src: url('Friz-Quadrata-Font/Friz Quadrata Regular.ttf'); }
+@font-face { font-family: League; font-weight: bold; src: url('Friz-Quadrata-Font/Friz Quadrata Bold.otf');}
+
+.navigation-bar {
+  width: 100%;
+  border-bottom: 1px solid black;
+  text-align: center;
+  font-family: League;
+}
+
+#main-header {
+  font-size: 300%;
+}
+
+.wrapper {
+  margin-right: auto;
+  margin-left:  auto;
+  max-width: 960px;
+  padding-right: 10px;
+  padding-left:  10px;
+  text-align: center;
+}
+
+.form-guess {
+  position: fixed;
+  bottom: 0;
+  margin: 2% auto; /* Will not center vertically and won't work in IE6/7. */
+  left: 0;
+  right: 0;
+}
+
+.clues {
+  border: 1px solid black;
+  width: 35%;
+  margin: 0 auto;
+  height: 100px;
+  margin-top: 5%;
+  padding: 1%;
+}
+
+#guessField {
+  width: 35%;
+  height: 35px;
+}
+
+#subButton {
+  height: 35px;
+}
+
+#questionType {
+  margin-top: 2%;
 }
