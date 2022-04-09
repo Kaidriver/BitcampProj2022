@@ -3,21 +3,34 @@
 
   <head>
     <meta charset="utf-8">
+     <link rel="stylesheet" href="style.css">
     <title>League of Legends Trivia!</title>
   </head>
 
   <body>
+    <div class="question">
+    </div>
+
+    <div class="clue">
+    </div>
+
     <div class='wrapper'>
     <form id='guessOne'>
 
     <div class='form-guess'>
-      <label id='guessLable' for='guessField'>1st Guess:</label>
-      <input id='guessField' type='text' maxlength='25'></input>
+      <label id="guessLable" for="guessField">Guess</label>
+      <input list="answers" id="guessField">
+      <datalist id="answers">
+        <option value="Annie">
+        <option value="Vel'Koz">
+        <option value="Brand">
+        <option value="Xerath">
+        <option value="Lux">
+      </datalist>
+      <button id='subButton' type='button'>Submit</button>
+    </form>
     </div>
 
-    <div class='form-sub'>
-      <button id='subButton' type='button'>Submit!</button>
-    </div>
 
     </form>
 
