@@ -1,3 +1,4 @@
-exports.controller = (req, res) => {
-  res.send('hello')
+exports.getData = (req, res) => {
+  const getCurrentData = require("../app.js")
+  res.send(getCurrentData)
 }
