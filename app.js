@@ -5,6 +5,7 @@ const cron = require('node-cron')
 const axios = require('axios')
 const cheerio = require('cheerio')
 const pretty = require('pretty')
+var Sequelize = require('sequelize-cockroachdb')
 
 require('dotenv').config()
 
@@ -12,17 +13,52 @@ app.use('/', routes)
 
 const PORT = process.env.PORT || 3000
 
+if (process.env.ADDR === undefined) {
+  throw new Error("ADDR (database URL) must be specified.");
+}
+
+var sequelize = new Sequelize(process.env.ADDR);
+console.log(sequelize)
+const Answer = sequelize.define("answer", {
+  answer: {
+    type: Sequelize.STRING,
+  },
+  haschosen: {
+    type: Sequelize.BOOLEAN,
+  },
+},
+{
+  timestamps: false,
+})
+
+const updateDB = Answer.update(
+  {
+    haschosen: false,
+  },
+  {
+    where: {haschosen: true}
+  }
+)
+
 app.listen(PORT, () => {
   console.log("Listening to port: " + PORT)
 })
 
-
-var answers = ["Aatrox", "Aatrox&Q","3181", "Illaoi&W", "Lux&R"]
 const indices = "QWER";
-var currentAnswer = 0
 //Get new word + clues
 cron.schedule('* * * * *', async () => {
-  let answer = answers[currentAnswer]
+
+  const testGetAll = await Answer.findAll({
+    attributes: ['answer'],
+    where: {
+      haschosen: false
+    },
+    raw: true
+  })
+
+  let answerList = testGetAll.map(entry => entry.answer)
+  let answer = answerList[Math.floor(Math.random()*answerList.length)]
+  console.log(answer)
 
   let bundledData = {}
   if (answer.includes("&")) {
@@ -83,7 +119,15 @@ cron.schedule('* * * * *', async () => {
     bundledData["clues"] = [trivia, "Passive: " + championData["passive"]["name"], championData["title"]]
   }
 
-  currentAnswer++;
-  console.log(currentAnswer)
+
+  const updateDB = Answer.update(
+    {
+      haschosen: true,
+    },
+    {
+      where: {answer: answer},
+      returning: true
+    }
+  )
   module.exports = bundledData;
 })
