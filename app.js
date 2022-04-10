@@ -42,12 +42,6 @@ const updateDB = Answer.update(
   }
 )
 
-app.listen(PORT, () => {
-  console.log("Listening to port: " + PORT)
-})
-
-
-
 const indices = "QWER";
 //Get new word + clues
 cron.schedule('* * * * *', async () => {
@@ -66,8 +60,7 @@ cron.schedule('* * * * *', async () => {
   const getWholeList = await Answer.findAll({
     raw: true
   })
-
-  let wholeList = getWholeList.map(entry => entry.answer)
+  
   let bundledData = {}
   if (answer.includes("&")) {
     const champion = answer.split("&")[0];

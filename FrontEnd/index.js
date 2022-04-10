@@ -43,9 +43,6 @@ else {
   gamesPlayed = parseInt(gamesPlayed)
 }
 
-$('#exampleModal').modal()
-$('#exampleModal2').modal()
-
 axios.get('http://localhost:3000/getDailyInfo').then((res) => {
   var guessNum = 0;
 
