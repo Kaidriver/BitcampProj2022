@@ -42,6 +42,10 @@ const updateDB = Answer.update(
   }
 )
 
+app.listen(PORT, () => {
+  console.log("Listening to port: " + PORT)
+})
+
 const indices = "QWER";
 //Get new word + clues
 cron.schedule('* * * * *', async () => {
@@ -61,6 +65,8 @@ cron.schedule('* * * * *', async () => {
     raw: true
   })
 
+  let wholeList = getWholeList.map(entry => entry.answer)
+
   let bundledData = {}
   if (answer.includes("&")) {
     const champion = answer.split("&")[0];
@@ -70,10 +76,10 @@ cron.schedule('* * * * *', async () => {
     const abilityData = testData.data["data"][champion]["spells"][ability];
     const abilityDescription = abilityData.description.replaceAll(champion, "The Champion")
 
-    bundledData["category"] = "Champion Ability"
-    bundledData["answer"] = champion + " " + answer.split("&")[1]
+    bundledData["category"] = "Champion Ultimate"
+    bundledData["answer"] = champion + " " + answer.split("_")[1]
     bundledData["clues"] = [abilityData.name, abilityData["image"]["full"], abilityDescription]
-    bundledData["choices"] = wholeList.filter(entry => entry.includes("&")).map(entry => entry.replace("&", " "))
+    bundledData["choices"] = wholeList.filter(entry => entry.includes("_")).map(entry => entry.replace("_", " "))
   }
   else if (!isNaN(answer)){
     const testData = await axios.get("http://ddragon.leagueoflegends.com/cdn/12.6.1/data/en_US/item.json")
@@ -120,7 +126,7 @@ cron.schedule('* * * * *', async () => {
     bundledData["category"] = "Champion"
     bundledData["answer"] = champion
     bundledData["clues"] = [trivia, "Passive: " + championData["passive"]["name"], championData["title"]]
-    bundledData["choices"] = wholeList.filter(entry => (isNaN(entry) && !entry.includes("&"))).map(entry => entry)
+    bundledData["choices"] = wholeList.filter(entry => (isNaN(entry) && !entry.includes("_")))
   }
 
   console.log(bundledData["choices"])
