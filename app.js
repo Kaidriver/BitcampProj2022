@@ -42,6 +42,10 @@ const updateDB = Answer.update(
   }
 )
 
+app.listen(PORT, () => {
+  console.log("Listening to port: " + PORT)
+})
+
 const indices = "QWER";
 //Get new word + clues
 cron.schedule('* * * * *', async () => {
@@ -61,6 +65,8 @@ cron.schedule('* * * * *', async () => {
     raw: true
   })
 
+  let wholeList = getWholeList.map(entry => entry.answer)
+  
   let bundledData = {}
   if (answer.includes("&")) {
     const champion = answer.split("&")[0];
@@ -101,7 +107,7 @@ cron.schedule('* * * * *', async () => {
     bundledData["category"] = "Item"
     bundledData["answer"] = itemData["name"]
     bundledData["clues"] = [itemStats, buildPath, itemDescription]
-    bundledData["choices"] = wholeList.filter(entry => !isNaN(entry)).map(entry => testData.data["data"][entry]["name"])
+    bundledData["choices"] = wholeList.filter(entry => !isNaN(entry)).map(entry => entry)
   }
   else {
     const champion = answer;
