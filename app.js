@@ -60,7 +60,7 @@ cron.schedule('* * * * *', async () => {
   const getWholeList = await Answer.findAll({
     raw: true
   })
-  
+
   let bundledData = {}
   if (answer.includes("&")) {
     const champion = answer.split("&")[0];
@@ -79,7 +79,7 @@ cron.schedule('* * * * *', async () => {
     const testData = await axios.get("http://ddragon.leagueoflegends.com/cdn/12.6.1/data/en_US/item.json")
     const itemData = testData.data["data"][answer]
 
-    let itemStats = "Gold:" + itemData["gold"]["base"] + " " + JSON.stringify(itemData.stats)
+    let itemStats = "Gold:" + itemData["gold"]["total"] + " " + JSON.stringify(itemData.stats)
     itemStats = itemStats.replace("FlatArmorMod", "Armor")
     itemStats = itemStats.replace("FlatSpellBlockMod", "MR")
     itemStats = itemStats.replace("FlatHPPoolMod", "Health")
@@ -101,7 +101,7 @@ cron.schedule('* * * * *', async () => {
     bundledData["category"] = "Item"
     bundledData["answer"] = itemData["name"]
     bundledData["clues"] = [itemStats, buildPath, itemDescription]
-    bundledData["choices"] = wholeList.filter(entry => !isNaN(entry)).map(entry => entry)
+    bundledData["choices"] = wholeList.filter(entry => !isNaN(entry)).map(entry => testData.data["data"][entry]["name"])
   }
   else {
     const champion = answer;
