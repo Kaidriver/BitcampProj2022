@@ -5,15 +5,26 @@ body {
   font-family: League !important;
 }
 
+.coolButtons {
+  padding-left: 1%;
+  padding-top: 0.5%;
+}
+
+.coolButtons div {
+  padding-right: 1%;
+  padding-top: 0.5%;
+}
+
 .navigation-bar {
   width: 100%;
   border-bottom: 1px solid black;
   text-align: center;
-
+  background-image: url("LOL.png");
 }
 
 #main-header {
   font-size: 300%;
+  color: #c7a355;
 }
 
 .wrapper {
@@ -83,4 +94,8 @@ body {
 
 .stat-item h5 {
   font-size: 80%;
+}
+
+.modal-body p {
+  padding-left: 10px;
 }

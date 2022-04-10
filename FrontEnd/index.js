@@ -23,6 +23,7 @@ function getGuess() {
   }
 }
 $('#exampleModal').modal()
+$('#exampleModal2').modal()
 
 var subButton = document.getElementById('subButton');
 subButton.addEventListener('click', getGuess, false);
