@@ -33,15 +33,6 @@ const Answer = sequelize.define("answer", {
   timestamps: false,
 })
 
-const updateDB = Answer.update(
-  {
-    haschosen: false,
-  },
-  {
-    where: {haschosen: true}
-  }
-)
-
 app.listen(PORT, () => {
   console.log("Listening to port: " + PORT)
 })
@@ -59,7 +50,10 @@ cron.schedule('* * * * *', async () => {
   })
 
   let answerList = testGetAll.map(entry => entry.answer)
-  let answer = answerList[Math.floor(Math.random()*answerList.length)]
+
+  answer = answerList[Math.floor(Math.random()*answerList.length)]
+
+  console.log(answer)
 
   const getWholeList = await Answer.findAll({
     raw: true
@@ -68,9 +62,11 @@ cron.schedule('* * * * *', async () => {
   let wholeList = getWholeList.map(entry => entry.answer)
 
   let bundledData = {}
-  if (answer.includes("&")) {
-    const champion = answer.split("&")[0];
-    const ability = indices.indexOf(answer.split("&")[1])
+
+  console.log(!isNaN(answer))
+  if (answer.includes("_")) {
+    const champion = answer.split("_")[0];
+    const ability = indices.indexOf(answer.split("_")[1])
 
     const testData = await axios.get("http://ddragon.leagueoflegends.com/cdn/12.6.1/data/en_US/champion/" + champion + ".json")
     const abilityData = testData.data["data"][champion]["spells"][ability];
@@ -82,6 +78,7 @@ cron.schedule('* * * * *', async () => {
     bundledData["choices"] = wholeList.filter(entry => entry.includes("_")).map(entry => entry.replace("_", " "))
   }
   else if (!isNaN(answer)){
+
     const testData = await axios.get("http://ddragon.leagueoflegends.com/cdn/12.6.1/data/en_US/item.json")
     const itemData = testData.data["data"][answer]
 
@@ -108,6 +105,7 @@ cron.schedule('* * * * *', async () => {
     bundledData["answer"] = itemData["name"]
     bundledData["clues"] = [itemStats, buildPath, itemDescription]
     bundledData["choices"] = wholeList.filter(entry => !isNaN(entry)).map(entry => testData.data["data"][entry]["name"])
+    console.log(bundledData["choices"])
   }
   else {
     const champion = answer;
