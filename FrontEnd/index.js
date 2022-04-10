@@ -115,6 +115,15 @@ axios.get('http://localhost:3000/getDailyInfo').then((res) => {
     }
   }
 
+  var enterInput = document.getElementById("guessOne");
+  enterInput.addEventListener("keyup", function(event) {
+    console.log(event.keyCode)
+    if (event.keyCode === 13) {
+      event.stopImmediatePropagation();
+      document.getElementById("subButton").click();
+    }
+  });
+
   var subButton = document.getElementById('subButton');
   subButton.addEventListener('click', getGuess, false);
 }).catch((err) => console.log(err))
