@@ -19,7 +19,8 @@ body {
   width: 100%;
   border-bottom: 1px solid black;
   text-align: center;
-  background-image: url("LOL.png");
+  background-image: url("header-background.png");
+  padding: 1%;
 }
 
 #main-header {
@@ -39,7 +40,7 @@ body {
 .form-guess {
   position: fixed;
   bottom: 0;
-  margin: 2% auto; /* Will not center vertically and won't work in IE6/7. */
+  margin: 2% auto;
   left: 0;
   right: 0;
 }
@@ -61,12 +62,10 @@ body {
 }
 
 #subButton {
-  height: 35px;
+  width: 5%;
 }
 
-#questionType {
-  margin-top: 2%;
-}
+
 
 .clues p {
   font-size: 100%;
